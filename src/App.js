@@ -1,10 +1,13 @@
-import './index.css';
+import { Routes, Route } from 'react-router-dom'
+import Login from './pages/Login'
+// Alternatively use the generate-index module
 
 function App() {
   return (
-    <div>
-      
-    </div>
+    <Routes>
+      <Route path="/" element={<Login />} />
+      {/* To include more routes */}
+    </Routes>
   );
 }
 
