@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Kycstatus = () => {
+const KYCVerification = () => {
   return (
     <div>
         {/* List all KYC submission, status and approve and reject buttons */}
@@ -8,4 +8,4 @@ const Kycstatus = () => {
   )
 }
 
-export default Kycstatus
+export default KYCVerification

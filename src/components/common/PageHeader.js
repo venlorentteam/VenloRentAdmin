@@ -1,11 +1,11 @@
 import React from 'react'
 
-const TitularBox = () => {
+const PageHeader = () => {
   return (
-    <div>
+    <div className="page-header">
         {/* Intended to be a full width box for page titles and all */}
     </div>
   )
 }
 
-export default TitularBox
+export default PageHeader

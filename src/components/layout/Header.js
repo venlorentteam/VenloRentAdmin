@@ -1,10 +1,11 @@
 import React from 'react'
+import './Header.css'
 
 const Header = () => {
   return (
-    <div>
+    <header className="admin-header">
         {/* Horizontal header like we have on user area */}
-    </div>
+    </header>
   )
 }
 
