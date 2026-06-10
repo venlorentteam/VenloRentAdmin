@@ -1,27 +1,13 @@
-.admin-layout {
-  min-height: 100vh;
-  background: var(--bg-page);
-}
-
 .admin-main {
   margin-left: var(--sidebar-width);
+
   min-height: 100vh;
+
   background: var(--bg-page);
-  width: calc(100% - var(--sidebar-width));
 }
 
 .admin-content {
-  min-height: calc(100vh - var(--topbar-height));
-  padding: calc(var(--topbar-height) + 16px) 16px 16px;
-}
+  margin-top: var(--topbar-height);
 
-@media (max-width: 760px) {
-  .admin-main {
-    margin-left: 0;
-    width: 100%;
-  }
-
-  .admin-content {
-    padding: calc(var(--topbar-height) + 12px) 12px 12px;
-  }
+  padding: 16px;
 }
