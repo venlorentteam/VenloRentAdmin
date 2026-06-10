@@ -1,3 +1,44 @@
 .stat-card {
-  border-radius: 8px;
+  background: var(--bg-card);
+  border: 0.5px solid var(--border);
+
+  border-radius: 10px;
+
+  padding: 14px 16px;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 4px;
+}
+
+.stat-label {
+  display: flex;
+  align-items: center;
+
+  gap: 6px;
+
+  font-size: 11px;
+
+  color: var(--text-tertiary);
+  font-weight: 600;
+}
+
+.stat-dot {
+  width: 6px;
+  height: 6px;
+
+  border-radius: 999px;
+}
+
+.stat-value {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.stat-subtitle {
+  font-size: 11px;
+  color: var(--text-secondary);
+  font-weight: 600;
 }

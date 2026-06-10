@@ -1,12 +1,32 @@
-import React from 'react'
-import './StatCard.css'
+import "./StatCard.css";
 
-const StatCard = () => {
+const StatCard = ({
+  title,
+  value,
+  dotColor,
+  subtitle
+}) => {
   return (
     <div className="stat-card">
-        {/* Count statistics for various metrics, mainly on dashboard page */}
-    </div>
-  )
-}
+      <div className="stat-label">
 
-export default StatCard
+        <span
+          className="stat-dot"
+          style={{ background: dotColor }}
+        />
+
+        {title}
+      </div>
+
+      <div className="stat-value">
+        {value}
+      </div>
+
+      <div className="stat-subtitle">
+        {subtitle}
+      </div>
+    </div>
+  );
+};
+
+export default StatCard;

@@ -1,20 +1,21 @@
-import React from 'react'
-import Header from './Header'
-import Sidebar from './Sidebar'
-import './AdminLayout.css'
+import Sidebar from "./Sidebar";
+import Header from "./Header";
+import "./AdminLayout.css";
 
 const AdminLayout = ({ children }) => {
   return (
     <div className="admin-layout">
       <Sidebar />
-      <div className="admin-layout__main">
+
+      <div className="admin-main">
         <Header />
-        <main className="admin-layout__content">
+
+        <main className="admin-content">
           {children}
         </main>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default AdminLayout
+export default AdminLayout;
