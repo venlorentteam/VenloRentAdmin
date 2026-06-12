@@ -1,0 +1,20 @@
+.shared-drawer {
+  width: 520px;
+
+  height: 100vh;
+
+  background: white;
+
+  margin-left: auto;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.drawer-body {
+  flex: 1;
+
+  overflow-y: auto;
+
+  padding: 20px;
+}

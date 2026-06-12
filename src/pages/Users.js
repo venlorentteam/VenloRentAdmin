@@ -27,7 +27,63 @@ const Users = () => {
     <AdminLayout>
 
       <div className="users-page">
+<div className="user-stats-grid">
 
+  <div className="user-stat-card">
+    <div className="user-stat-label">
+      Total Users
+    </div>
+
+    <div className="user-stat-value">
+      {users.length}
+    </div>
+  </div>
+
+  <div className="user-stat-card">
+    <div className="user-stat-label">
+      Agents
+    </div>
+
+    <div className="user-stat-value">
+      {
+        users.filter(
+          u => u.role === "Agent"
+        ).length
+      }
+    </div>
+  </div>
+
+  <div className="user-stat-card">
+    <div className="user-stat-label">
+      Customers
+    </div>
+
+    <div className="user-stat-value">
+      {
+        users.filter(
+          u => u.role === "Customer"
+        ).length
+      }
+    </div>
+  </div>
+
+  <div className="user-stat-card">
+    <div className="user-stat-label">
+      Pending KYC
+    </div>
+
+    <div className="user-stat-value">
+      {
+        users.filter(
+          u =>
+            u.verificationStatus ===
+            "Pending"
+        ).length
+      }
+    </div>
+  </div>
+
+</div>
         <div className="users-toolbar">
 
           <input

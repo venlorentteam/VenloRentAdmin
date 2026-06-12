@@ -1,0 +1,120 @@
+.listings-page {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.listings-toolbar {
+  background: var(--bg-card);
+
+  border: .5px solid var(--border);
+
+  border-radius: var(--radius-lg);
+
+  padding: 12px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.listings-search {
+  width: 320px;
+  height: 36px;
+
+  border: .5px solid var(--border);
+
+  border-radius: 8px;
+
+  padding: 0 12px;
+}
+
+.listings-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill,minmax(350px,1fr));
+  gap: 14px;
+}
+
+.listing-card {
+  background: var(--bg-card);
+
+  border: .5px solid var(--border);
+
+  border-radius: 14px;
+
+  overflow: hidden;
+
+  transition: .2s;
+}
+
+.listing-card:hover {
+  transform: translateY(-2px);
+}
+
+.listing-image {
+  width: 100%;
+  height: 180px;
+
+  object-fit: cover;
+}
+
+.listing-content {
+  padding: 16px;
+}
+
+.listing-title {
+  font-size: 16px;
+  font-weight: 600;
+
+  margin-bottom: 6px;
+}
+
+.listing-location {
+  font-size: 12px;
+
+  color: var(--text-tertiary);
+
+  margin-bottom: 10px;
+}
+
+.listing-meta {
+  display: flex;
+  justify-content: space-between;
+
+  margin-bottom: 12px;
+}
+
+.listing-price {
+  font-weight: 600;
+}
+
+.listing-agent {
+  font-size: 12px;
+  color: var(--text-tertiary);
+}
+
+.listing-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.listing-btn {
+  flex: 1;
+
+  height: 36px;
+
+  border-radius: 8px;
+
+  border: none;
+
+  cursor: pointer;
+}
+
+.view-btn-card {
+  background: var(--primary);
+  color: white;
+}
+
+.moderate-btn {
+  background: var(--bg-secondary);
+}

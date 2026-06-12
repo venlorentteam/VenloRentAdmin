@@ -5,8 +5,8 @@ import Dashboard from "./pages/Dashboard";
 import Users from "./pages/Users";
 import Listings from "./pages/Listings";
 import Orders from "./pages/Orders";
-import Requests from "./pages/Requests";
 import KYCVerification from "./pages/KYCVerification";
+import Moderations from "./pages/Moderations";
 
 function App() {
   return (
@@ -17,7 +17,7 @@ function App() {
       <Route path="/users" element={<Users />} />
       <Route path="/listings" element={<Listings />} />
       <Route path="/orders" element={<Orders />} />
-      <Route path="/requests" element={<Requests />} />
+      <Route path="/moderation" element={<Moderations />} />
       <Route path="/kyc" element={<KYCVerification />} />
     </Routes>
   );
