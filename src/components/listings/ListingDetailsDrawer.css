@@ -1,0 +1,18 @@
+.listing-drawer {
+  width: 520px;
+
+  height: 100vh;
+
+  background: white;
+
+  margin-left: auto;
+
+  overflow-y: auto;
+}
+
+.drawer-image {
+  width: 100%;
+  height: 250px;
+
+  object-fit: cover;
+}

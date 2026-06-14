@@ -1,48 +1,63 @@
 import "./DataTable.css";
 
 const DataTable = ({
-  columns = [],
-  rows = [],
-  getRowKey,
-  emptyState,
-  onRowClick
+  columns,
+  data,
+  renderActions
 }) => {
-  const hasRows = rows.length > 0;
 
   return (
     <div className="data-table">
+
       <div
-        className="data-table__header"
-        style={{ gridTemplateColumns: columns.map(column => column.width || "1fr").join(" ") }}
+        className="table-header"
+        style={{
+          gridTemplateColumns:
+            `repeat(${columns.length},1fr) ${
+              renderActions ? "120px" : ""
+            }`
+        }}
       >
         {columns.map(column => (
           <div key={column.key}>
             {column.label}
           </div>
         ))}
+
+        {renderActions && (
+          <div>Action</div>
+        )}
       </div>
 
-      {hasRows ? (
-        rows.map((row, index) => (
-          <button
-            className="data-table__row"
-            key={getRowKey ? getRowKey(row) : row.id || index}
-            onClick={() => onRowClick?.(row)}
-            style={{ gridTemplateColumns: columns.map(column => column.width || "1fr").join(" ") }}
-            type="button"
-          >
-            {columns.map(column => (
-              <div className="data-table__cell" key={column.key}>
-                {column.render ? column.render(row) : row[column.key]}
-              </div>
-            ))}
-          </button>
-        ))
-      ) : (
-        <div className="data-table__empty">
-          {emptyState}
+      {data.map(row => (
+
+        <div
+          key={row.id}
+          className="table-row"
+          style={{
+            gridTemplateColumns:
+              `repeat(${columns.length},1fr) ${
+                renderActions ? "120px" : ""
+              }`
+          }}
+        >
+
+          {columns.map(column => (
+            <div key={column.key}>
+              {row[column.key]}
+            </div>
+          ))}
+
+          {renderActions && (
+            <div>
+              {renderActions(row)}
+            </div>
+          )}
+
         </div>
-      )}
+
+      ))}
+
     </div>
   );
 };

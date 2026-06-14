@@ -125,5 +125,65 @@ export const flaggedItems = [
   },
 ];
 
-export const listings = [];
+export const listings = [
+  {
+    id: "LST001",
+    title: "3 Bedroom Apartment",
+    location: "Lekki Phase 1, Lagos",
+    agent: "Chinedu Okafor",
+    price: 3500000,
+    status: "Active",
+    category: "Apartment",
+    image:
+      "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85"
+  },
+  {
+    id: "LST002",
+    title: "2 Bedroom Flat",
+    location: "Gwarinpa, Abuja",
+    agent: "Amina Bello",
+    price: 2200000,
+    status: "Pending",
+    category: "Flat",
+    image:
+      "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2"
+  },
+  {
+    id: "LST003",
+    title: "Luxury Duplex",
+    location: "Ikoyi, Lagos",
+    agent: "Emeka Obi",
+    price: 12000000,
+    status: "Rejected",
+    category: "Duplex",
+    image:
+      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c"
+  }
+];
 export const payments = [];
+export const moderationQueue = [
+  {
+    id: 1,
+    type: "Listing",
+    target: "Luxury Duplex in Ikoyi",
+    reason: "Fraudulent Pricing",
+    reports: 4,
+    status: "Pending"
+  },
+  {
+    id: 2,
+    type: "Message",
+    target: "WhatsApp Contact Spam",
+    reason: "Phone Number Sharing",
+    reports: 2,
+    status: "Pending"
+  },
+  {
+    id: 3,
+    type: "Listing",
+    target: "2 Bedroom Flat",
+    reason: "Misleading Photos",
+    reports: 6,
+    status: "Under Review"
+  }
+];
