@@ -1,0 +1,13 @@
+.admin-main {
+  margin-left: var(--sidebar-width);
+
+  min-height: 100vh;
+
+  background: var(--bg-page);
+}
+
+.admin-content {
+  margin-top: var(--topbar-height);
+
+  padding: 16px;
+}

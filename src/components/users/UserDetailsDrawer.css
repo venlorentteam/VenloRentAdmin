@@ -1,0 +1,25 @@
+.user-drawer {
+  width: 480px;
+  height: 100vh;
+
+  background: white;
+
+  margin-left: auto;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.detail-row {
+  margin-bottom: 20px;
+}
+
+.detail-row label {
+  display: block;
+
+  font-size: 11px;
+
+  color: var(--text-tertiary);
+
+  margin-bottom: 4px;
+}

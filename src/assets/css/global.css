@@ -11,7 +11,12 @@
   /* ========================================
      PRIMARY COLORS - Emerald Green Theme
      ======================================== */
-  --primary-color: #059669; /* Emerald-500 */
+  --primary: #10b981;
+  --primary-dark: #059669;
+  --primary-light: #6ee7b7;
+  --primary-lightest: #d1fae5;
+
+  --primary-color: #10b981; /* Emerald-500 */
   --primary-color-dark: #059669; /* Emerald-600 */
   --primary-color-light: #10b981; /* Emerald-300 */
   --primary-color-accent: #047857; /* Emerald-700 */
@@ -24,12 +29,20 @@
   /* ========================================
      BACKGROUND COLORS
      ======================================== */
+  --bg-page: #f8fafc;
+  --bg-card: #ffffff;
+  --bg-secondary: #f1f5f9;
+  --bg-hover: #f1f5f9;
+
+  --bg-color: var(--bg-page);
   --bg-color-light: #f9faf8;
   --bg-color-dark: #0f172a; /* Slate-900 */
   --bg-secondary-light: #f8fafc; /* Slate-50 */
   --bg-secondary-dark: #1e293b; /* Slate-800 */
   
   /* Card/Box backgrounds */
+  --box-bg: var(--bg-card);
+  --box-bg-hover: var(--bg-hover);
   --box-bg-light: #ffffff;
   --box-bg-dark: #1e293b;
   --box-bg-hover-light: #f8fafc;
@@ -38,6 +51,10 @@
   /* ========================================
      TEXT COLORS
      ======================================== */
+  --text-primary: #1f2937;
+  --text-secondary: #6b7280;
+  --text-tertiary: #9ca3af;
+
   --text-primary-light: #1f2937; /* Gray-800 */
   --text-primary-dark: #f1f5f9; /* Slate-100 */
   --text-secondary-light: #6b7280; /* Gray-500 */
@@ -52,6 +69,9 @@
   /* ========================================
      BORDER COLORS
      ======================================== */
+  --border: rgba(0,0,0,0.08);
+  --border-color: var(--border);
+
   --border-light: #e5e7eb; /* Gray-200 */
   --border-dark: #374151; /* Gray-700 */
   --border-focus: #10b981; /* Primary */
@@ -61,10 +81,13 @@
      ======================================== */
   --input-bg-light: #ffffff;
   --input-bg-dark: #1e293b;
+  --input-bg: var(--input-bg-light);
   --input-border-light: #e5e7eb;
   --input-border-dark: #374151;
+  --input-border: var(--input-border-light);
   --input-focus-light: #d1fae5;
   --input-focus-dark: #064e3b; /* Dark emerald */
+  --input-focus-bg: var(--input-focus-light);
   
   /* ========================================
      BUTTON COLORS
@@ -75,8 +98,10 @@
   
   --button-secondary-bg-light: #f3f4f6;
   --button-secondary-bg-dark: #374151;
+  --button-secondary-bg: var(--button-secondary-bg-light);
   --button-secondary-text-light: #1f2937;
   --button-secondary-text-dark: #f9fafb;
+  --button-secondary-text: var(--button-secondary-text-light);
   
   /* ========================================
      NAVIGATION
@@ -89,6 +114,11 @@
   /* ========================================
      STATUS COLORS
      ======================================== */
+  --danger: #ef4444;
+  --warning: #f59e0b;
+  --info: #3b82f6;
+  --purple: #8b5cf6;
+
   --success-color: #10b981; /* Emerald */
   --warning-color: #f59e0b; /* Amber */
   --danger-color: #ef4444; /* Red */
@@ -108,6 +138,9 @@
 /* ========================================
     SPACING & SIZING
     ======================================== */
+  --sidebar-width: 240px;
+  --topbar-height: 52px;
+
   --spacing-xs: 0.25rem;   /* 4px */
   --spacing-sm: 0.5rem;    /* 8px */
   --spacing-md: 1rem;      /* 16px */
@@ -127,6 +160,7 @@
   --font-xs: 0.75rem;      /* 12px */
   --font-sm: 0.875rem;     /* 14px */
   --font-base: 1rem;       /* 16px */
+  --font-md: 1rem;
   --font-lg: 1.125rem;     /* 18px */
   --font-xl: 1.25rem;      /* 20px */
   --font-2xl: 1.5rem;      /* 24px */
@@ -136,6 +170,7 @@
   /* ========================================
      TRANSITIONS
      ======================================== */
+  --transition: 150ms ease;
   --transition-fast: 150ms ease-in-out;
   --transition-base: 300ms ease-in-out;
   --transition-slow: 500ms ease-in-out;
@@ -157,33 +192,29 @@
    ======================================== */
 @media (prefers-color-scheme: dark){
   :root {
-    /* Override colors for dark mode */
-    --bg-color: var(--bg-color-dark);
-    --bg-secondary: var(--bg-secondary-dark);
-    --box-bg: var(--box-bg-dark);
-    --box-bg-hover: var(--box-bg-hover-dark);
-    
-    --text-primary: var(--text-primary-dark);
-    --text-secondary: var(--text-secondary-dark);
-    --text-tertiary: var(--text-tertiary-dark);
-    
-    --border-color: var(--border-dark);
-    --input-bg: var(--input-bg-dark);
-    --input-border: var(--input-border-dark);
-    --input-focus-bg: var(--input-focus-dark);
-    
-    --nav-bg: var(--nav-bg-dark);
-    --nav-hover: var(--nav-hover-dark);
-    
-    --button-secondary-bg: var(--button-secondary-bg-dark);
-    --button-secondary-text: var(--button-secondary-text-dark);
-    
-    /* Adjust shadows for dark mode */
-    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
-    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -2px rgba(0, 0, 0, 0.2);
-    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -4px rgba(0, 0, 0, 0.2);
-    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
-    --shadow-card-hover: 0 10px 25px -5px rgba(16, 185, 129, 0.25), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
+    --bg-page: #f8fafc;
+    --bg-card: #ffffff;
+    --bg-secondary: #f1f5f9;
+    --bg-hover: #f1f5f9;
+    --bg-color: var(--bg-page);
+    --box-bg: var(--bg-card);
+    --box-bg-hover: var(--bg-hover);
+
+    --text-primary: #1f2937;
+    --text-secondary: #4b5563;
+    --text-tertiary: #64748b;
+
+    --border: rgba(0,0,0,0.08);
+    --border-color: var(--border);
+    --input-bg: #ffffff;
+    --input-border: #e5e7eb;
+    --input-focus-bg: #d1fae5;
+
+    --nav-bg: rgba(248, 250, 252, 0.95);
+    --nav-hover: var(--bg-hover);
+
+    --button-secondary-bg: #f3f4f6;
+    --button-secondary-text: #1f2937;
   }
 }
 
@@ -196,8 +227,8 @@
     --box-bg-hover: var(--box-bg-hover-light);
     
     --text-primary: var(--text-primary-light);
-    --text-secondary: var(--text-secondary-light);
-    --text-tertiary: var(--text-tertiary-light);
+    --text-secondary: #4b5563;
+    --text-tertiary: #64748b;
     
     --border-color: var(--border-light);
     --input-bg: var(--input-bg-light);
@@ -488,6 +519,35 @@ input, textarea, select {
   tbody tr:hover td { 
     background: var(--box-bg);
   }
+  .badge-success {
+  background: var(--success-pale);
+  color: var(--success-color);
+}
+
+/* page header */
+.page-header {
+  margin-bottom: 24px;
+}
+
+.page-header h1 {
+  font-size: 2rem;
+  margin-bottom: 6px;
+}
+
+.page-header p {
+  color: var(--text-secondary);
+}
+
+/* Status badges */
+.badge-warning {
+  background: var(--warning-pale);
+  color: var(--warning-color);
+}
+
+.badge-danger {
+  background: var(--danger-pale);
+  color: var(--danger-color);
+}
 /* Forms */
 .input {
   width: 100%;
