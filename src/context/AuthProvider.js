@@ -1,9 +1,8 @@
 import React, { createContext, useContext, useState, useEffect } from 'react'
+import axios from 'axios'
 
-// //Create Context Provider
-const AuthContext = createContext()
+const AuthContext = createContext(null);
 
-// //Define Context Coomponent
 const AuthProvider = ({children}) => {
     const [admin, setAdmin] = useState(null)
     const [isLoading, setIsLoading] = useState(true);
@@ -55,7 +54,6 @@ const AuthProvider = ({children}) => {
     const updateAdmin = (updatedData) => {
         setAdmin(prev => ({ ...prev, ...updatedData }))  // normalize on update
     }
-    //Return Context Provider with admin and auth functions
     return (
         <AuthContext.Provider value={{ admin, isLoading, login, logout, updateAdmin }}>
             {children}
@@ -64,5 +62,5 @@ const AuthProvider = ({children}) => {
 
 }
 
-export const useAuth = () => useContext(AuthContext)
+export const useAuth = () => useContext(AuthContext);
 export default AuthProvider

@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-
+import AuthProvider from "./context/AuthProvider";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import Users from "./pages/Users";
