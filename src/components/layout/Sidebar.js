@@ -1,6 +1,5 @@
 import "./Sidebar.css";
 import { NavLink, useNavigate } from "react-router-dom";
-
 import {
   RiDashboardLine,
   RiTeamLine,
@@ -18,7 +17,7 @@ import {
   flaggedItems
 } from "../../mockData";
 
-const Sidebar = () => {
+const Sidebar = ({ isOpen, onClose }) => {
 
   const navigate = useNavigate();
 
@@ -38,7 +37,7 @@ const Sidebar = () => {
   };
 
   return (
-    <aside className="sidebar">
+    <aside className={`sidebar ${isOpen ? "active-sidebar" : ""}`}>
 
       <div className="sidebar-logo">
 
@@ -64,6 +63,7 @@ const Sidebar = () => {
           <NavLink
             to="/dashboard"
             className="nav-item"
+            onClick={onClose}
           >
             <RiDashboardLine />
             Dashboard
@@ -80,6 +80,7 @@ const Sidebar = () => {
           <NavLink
             to="/kyc"
             className="nav-item"
+            onClick={onClose}
           >
             <RiBankCardLine/>
             KYC Verification
@@ -100,6 +101,7 @@ const Sidebar = () => {
           <NavLink
             to="/users"
             className="nav-item"
+            onClick={onClose}
           >
             <RiTeamLine />
             Users
@@ -108,6 +110,7 @@ const Sidebar = () => {
           <NavLink
             to="/listings"
             className="nav-item"
+            onClick={onClose}
           >
             <RiBuildingLine />
             Listings
@@ -116,6 +119,7 @@ const Sidebar = () => {
           <NavLink
             to="/orders"
             className="nav-item"
+            onClick={onClose}
           >
             <RiShoppingBag3Line />
             Orders
@@ -124,6 +128,7 @@ const Sidebar = () => {
           <NavLink
             to="/requests"
             className="nav-item"
+            onClick={onClose}
           >
             <RiFileListLine />
             Requests
@@ -140,6 +145,7 @@ const Sidebar = () => {
           <NavLink
             to="/moderation"
             className="nav-item"
+            onClick={onClose}
           >
             <RiShieldCheckLine />
             Moderation
@@ -168,6 +174,7 @@ const Sidebar = () => {
           <NavLink
             to="/payments"
             className="nav-item"
+            onClick={onClose}
           >
             <RiBankCardLine />
             Payments

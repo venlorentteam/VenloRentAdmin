@@ -10,13 +10,9 @@ import {
   flaggedItems
 } from "../mockData";
 
-import {
-  RiShieldCheckLine,
-  RiShoppingBag3Line
-} from "react-icons/ri";
+import { RiShieldCheckLine, RiShoppingBag3Line } from "react-icons/ri";
 
 const Dashboard = () => {
-
   const verifiedAgents =
     users.filter(
       user =>
@@ -41,11 +37,8 @@ const Dashboard = () => {
 
   return (
     <AdminLayout>
-
       <div className="dashboard">
-
         <div className="stats-grid">
-
           <StatCard
             title="Registered users"
             value={users.length}

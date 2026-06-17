@@ -1,12 +1,12 @@
 import React from 'react'
 import AdminLayout from "../components/layout/AdminLayout"
 
-const Requests = () => {
+const Payments = () => {
   return (
     <AdminLayout>
-      {/* List requests on a table with pagination, search, and filtering */}
+        
     </AdminLayout>
   )
 }
 
-export default Requests
+export default Payments
