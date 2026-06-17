@@ -11,3 +11,26 @@
 
   padding: 16px;
 }
+
+.sidebar-backdrop {
+  display: none;
+}
+
+@media (max-width: 760px) {
+  .admin-main {
+    margin-left: 0;
+  }
+
+  .admin-content {
+    padding: 12px;
+  }
+
+  .sidebar-backdrop {
+    display: block;
+    position: fixed;
+    inset: var(--topbar-height) 0 0 0;
+    border: 0;
+    background: rgba(15, 23, 42, 0.28);
+    z-index: 110;
+  }
+}

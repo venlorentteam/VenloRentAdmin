@@ -1,9 +1,22 @@
 
 import React, { useState } from 'react'
+import { useNavigate, useLocation } from 'react-router-dom'
+import { useAuth } from '../context/AuthContext'
 import logo from '../assets/img/venlorent-light.png'
 import './Login.css'
 
 const Login = () => {
+  const { admin, isLoading } = useAuth()
+  const navigate = useNavigate()
+  const location = useLocation()
+  const from = location.state?.from?.pathname || '/dashboard'
+
+  useEffect(() => {
+    if (!isLoading && admin) {
+      navigate(from, { replace: true })
+    }
+  }, [admin, isLoading, navigate, from])
+
   const [showPassword, setShowPassword] = useState(false)
 
   return (
@@ -25,7 +38,7 @@ const Login = () => {
           </div>
 
           <div className="login-insights" aria-label="Platform highlights">
-            <div>
+            {/* <div>
               <span>148</span>
               <p>Active listings</p>
             </div>
@@ -36,7 +49,7 @@ const Login = () => {
             <div>
               <span>96%</span>
               <p>Request response</p>
-            </div>
+            </div> */}
           </div>
         </div>
 

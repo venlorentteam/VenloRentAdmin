@@ -1,7 +1,9 @@
 import "./Header.css";
 import { useLocation } from "react-router-dom";
+import React, { useEffect } from 'react'
+import { HiOutlineMenu } from "react-icons/hi";
 
-const Header = () => {
+const Header = ({ onMenuClick, isSidebarOpen }) => {
 
   const location = useLocation();
 
@@ -16,16 +18,28 @@ const Header = () => {
     "/payments": "Payments",
   };
 
-  const pageTitle =
-    titles[location.pathname] || "VenloRent";
+  const pageTitle = titles[location.pathname] || "VenloRent";
+  useEffect(() => {
+    document.title = pageTitle + " - VenloRent Admin";
+  }, [pageTitle])
 
   return (
     <header className="admin-header">
+      <div className="header-left">
+        <button
+          type="button"
+          className="menu-btn"
+          onClick={onMenuClick}
+          aria-label="Toggle sidebar"
+          aria-expanded={isSidebarOpen}
+        >
+          <HiOutlineMenu className="hamburg-toggle" />
+        </button>
 
-      <div className="page-title">
-        {pageTitle}
+        <span className="page-title">
+          {pageTitle}
+        </span>
       </div>
-
       <div className="header-right">
 
         <div className="header-pill">
@@ -44,7 +58,7 @@ const Header = () => {
       </div>
 
     </header>
-  );
-};
+  )
+}
 
 export default Header;

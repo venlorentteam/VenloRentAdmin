@@ -1,10 +1,11 @@
 import React from 'react'
+import AdminLayout from "../components/layout/AdminLayout"
 
 const Orders = () => {
   return (
-    <div>
+    <AdminLayout>
         {/* List orders on a table with pagination, search, and filtering, delete button etc */}
-    </div>
+    </AdminLayout>
   )
 }
 

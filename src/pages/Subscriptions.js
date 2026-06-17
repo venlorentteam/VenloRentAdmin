@@ -1,10 +1,10 @@
 import React from 'react'
-
+import AdminLayout from "../components/layout/AdminLayout"
 const Subscriptions = () => {
   return (
-    <div>
+    <AdminLayout>
         {/* List subscriptions from users */}
-    </div>
+    </AdminLayout>
   )
 }
 
