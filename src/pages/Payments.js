@@ -1,11 +1,12 @@
 import React from 'react'
 import AdminLayout from "../components/layout/AdminLayout"
-const Subscriptions = () => {
+
+const Payments = () => {
   return (
     <AdminLayout>
-        {/* List subscriptions from users */}
+        
     </AdminLayout>
   )
 }
 
-export default Subscriptions
+export default Payments
