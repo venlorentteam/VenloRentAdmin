@@ -103,20 +103,51 @@ export const kycApplications = [
     submittedAt: "6 hours ago"
   }
 ];
-
 export const orders = [
   {
-    id: "VLR001",
-    amount: 850000,
-    status: "completed",
+    id: "VLR-1001",
+    property: "Luxury Duplex",
+    customer: "Chinedu Okafor",
+    agent: "Prime Homes",
+    amount: "₦8,500,000",
+    status: "Completed",
+    createdAt: "2026-06-15",
+    reservationEnds: "-",
   },
-  {
-    id: "VLR002",
-    amount: 1200000,
-    status: "pending",
-  },
-];
 
+  {
+    id: "VLR-1002",
+    property: "2 Bedroom Flat",
+    customer: "Amina Bello",
+    agent: "Urban Properties",
+    amount: "₦2,100,000",
+    status: "Pending",
+    createdAt: "2026-06-17",
+    reservationEnds: "2026-06-20",
+  },
+
+  {
+    id: "VLR-1003",
+    property: "Mini Flat",
+    customer: "John Eze",
+    agent: "Kings Realtors",
+    amount: "₦1,250,000",
+    status: "Pending",
+    createdAt: "2026-06-16",
+    reservationEnds: "2026-06-19",
+  },
+
+  {
+    id: "VLR-1004",
+    property: "4 Bedroom Detached",
+    customer: "Emeka Obi",
+    agent: "Prime Homes",
+    amount: "₦12,000,000",
+    status: "Cancelled",
+    createdAt: "2026-06-10",
+    reservationEnds: "-",
+  }
+];
 export const flaggedItems = [
   {
     id: 1,
@@ -185,5 +216,46 @@ export const moderationQueue = [
     reason: "Misleading Photos",
     reports: 6,
     status: "Under Review"
+  }
+];
+export const requests = [
+  {
+    id: "REQ-1001",
+    user: "Amina Bello",
+    location: "Lekki",
+    budget: "₦3,000,000",
+    bedrooms: "2 Bedroom",
+    status: "Open",
+    createdAt: "2026-06-17",
+  },
+
+  {
+    id: "REQ-1002",
+    user: "Chinedu Okafor",
+    location: "Ikoyi",
+    budget: "₦8,000,000",
+    bedrooms: "4 Bedroom",
+    status: "Matched",
+    createdAt: "2026-06-16",
+  },
+
+  {
+    id: "REQ-1003",
+    user: "John Eze",
+    location: "Yaba",
+    budget: "₦1,500,000",
+    bedrooms: "1 Bedroom",
+    status: "Closed",
+    createdAt: "2026-06-15",
+  },
+
+  {
+    id: "REQ-1004",
+    user: "Fatima Bello",
+    location: "Ajah",
+    budget: "₦2,500,000",
+    bedrooms: "2 Bedroom",
+    status: "Open",
+    createdAt: "2026-06-18",
   }
 ];

@@ -7,6 +7,7 @@ import Listings from "./pages/Listings";
 import Orders from "./pages/Orders";
 import KYCVerification from "./pages/KYCVerification";
 import Moderations from "./pages/Moderations";
+import Requests from "./pages/Requests";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
       <Route path="/orders" element={<Orders />} />
       <Route path="/moderation" element={<Moderations />} />
       <Route path="/kyc" element={<KYCVerification />} />
+       <Route path="/requests" element={<Requests />} />
     </Routes>
   );
 }

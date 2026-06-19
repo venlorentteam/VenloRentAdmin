@@ -41,3 +41,6 @@
 .table-row:hover {
   background: var(--bg-hover);
 }
+.data-table {
+  overflow-x: auto;
+}

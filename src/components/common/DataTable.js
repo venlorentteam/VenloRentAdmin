@@ -42,11 +42,15 @@ const DataTable = ({
           }}
         >
 
-          {columns.map(column => (
-            <div key={column.key}>
-              {row[column.key]}
-            </div>
-          ))}
+{columns.map(column => (
+  <div key={column.key}>
+    {
+      column.render
+        ? column.render(row)
+        : row[column.key]
+    }
+  </div>
+))}
 
           {renderActions && (
             <div>
