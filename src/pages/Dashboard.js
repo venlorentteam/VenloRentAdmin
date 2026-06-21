@@ -1,15 +1,19 @@
 import "./Dashboard.css";
 
+
 import AdminLayout from "../components/layout/AdminLayout";
 import StatCard from "../components/cards/StatCard";
 
 import {
+  recentActivities,
   users,
-  kycApplications,
+  listings,
+  flaggedItems,
   orders,
-  flaggedItems
+  payments,
+  kycApplications,
+  moderationQueue
 } from "../mockData";
-
 import { RiShieldCheckLine, RiShoppingBag3Line } from "react-icons/ri";
 
 const Dashboard = () => {
@@ -68,6 +72,96 @@ const Dashboard = () => {
           />
 
         </div>
+        <div className="dashboard-bottom-grid">
+
+  <div className="dashboard-card">
+
+    <div className="dashboard-card-title">
+      Recent Activity
+    </div>
+
+    <div className="activity-list">
+
+      {recentActivities.map(item => (
+
+        <div
+          key={item.id}
+          className="activity-item"
+        >
+
+          <div>
+
+            <div className="activity-action">
+              {item.action}
+            </div>
+
+            <div className="activity-user">
+              {item.user}
+            </div>
+
+          </div>
+
+          <div className="activity-time">
+            {item.time}
+          </div>
+
+        </div>
+
+      ))}
+
+    </div>
+
+  </div>
+
+  <div className="dashboard-card">
+
+    <div className="dashboard-card-title">
+      Quick Metrics
+    </div>
+
+    <div className="quick-metric">
+      <span>Users</span>
+      <strong>{users.length}</strong>
+    </div>
+
+    <div className="quick-metric">
+      <span>Listings</span>
+      <strong>{listings.length}</strong>
+    </div>
+
+    <div className="quick-metric">
+      <span>Orders</span>
+      <strong>{orders.length}</strong>
+    </div>
+
+    <div className="quick-metric">
+      <span>Payments</span>
+      <strong>{payments.length}</strong>
+    </div>
+
+    <div className="quick-metric">
+      <span>Pending KYC</span>
+
+      <strong>
+        {
+          kycApplications.filter(
+            k => k.status === "pending"
+          ).length
+        }
+      </strong>
+    </div>
+
+    <div className="quick-metric">
+      <span>Moderation Queue</span>
+
+      <strong>
+        {moderationQueue.length}
+      </strong>
+    </div>
+
+  </div>
+
+</div>
 
         <div className="dashboard-body">
 

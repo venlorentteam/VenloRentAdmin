@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 
 import "./Requests.css";
 
@@ -16,6 +16,54 @@ const Requests = () => {
 
   const [selectedRequest, setSelectedRequest] =
     useState(null);
+
+  const [searchTerm, setSearchTerm] =
+  useState("");
+
+const [activeFilter, setActiveFilter] =
+  useState("All");
+
+const filteredRequests = useMemo(() => {
+
+  return requests.filter(request => {
+
+    const matchesSearch =
+
+      request.id
+        .toLowerCase()
+        .includes(
+          searchTerm.toLowerCase()
+        ) ||
+
+      request.user
+        .toLowerCase()
+        .includes(
+          searchTerm.toLowerCase()
+        ) ||
+
+      request.location
+        .toLowerCase()
+        .includes(
+          searchTerm.toLowerCase()
+        );
+
+    const matchesFilter =
+
+      activeFilter === "All"
+        ? true
+        : request.status === activeFilter;
+
+    return (
+      matchesSearch &&
+      matchesFilter
+    );
+
+  });
+
+}, [
+  searchTerm,
+  activeFilter
+]);
 
   const columns = [
     {
@@ -123,24 +171,30 @@ const Requests = () => {
 
         <div className="requests-toolbar">
 
-          <SearchBar
-            placeholder="Search requests..."
-          />
+         <SearchBar
+  placeholder="Search requests..."
+  value={searchTerm}
+  onChange={(e) =>
+    setSearchTerm(e.target.value)
+  }
+/>
 
-          <FilterBar
-            filters={[
-              "All",
-              "Open",
-              "Matched",
-              "Closed"
-            ]}
-          />
+        <FilterBar
+  filters={[
+    "All",
+    "Open",
+    "Matched",
+    "Closed"
+  ]}
+  activeFilter={activeFilter}
+  onFilterChange={setActiveFilter}
+/>
 
         </div>
 
         <DataTable
           columns={columns}
-          data={requests}
+        data={filteredRequests}
           renderActions={(row) => (
 
             <button

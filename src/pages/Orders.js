@@ -1,7 +1,5 @@
-import { useState } from "react";
-
 import "./Orders.css";
-
+import { useMemo, useState } from "react";
 import AdminLayout from "../components/layout/AdminLayout";
 
 import DataTable from "../components/common/DataTable";
@@ -14,8 +12,50 @@ import { orders } from "../mockData";
 
 const Orders = () => {
 
-  const [selectedOrder, setSelectedOrder] =
-    useState(null);
+const [selectedOrder, setSelectedOrder] =
+  useState(null);
+
+const [searchTerm, setSearchTerm] =
+  useState("");
+
+const [activeFilter, setActiveFilter] =
+  useState("All");
+
+const filteredOrders = useMemo(() => {
+
+  return orders.filter(order => {
+
+    const matchesSearch =
+
+      order.id
+        .toLowerCase()
+        .includes(
+          searchTerm.toLowerCase()
+        ) ||
+
+      order.customer
+        .toLowerCase()
+        .includes(
+          searchTerm.toLowerCase()
+        );
+
+    const matchesFilter =
+
+      activeFilter === "All"
+        ? true
+        : order.status === activeFilter;
+
+    return (
+      matchesSearch &&
+      matchesFilter
+    );
+
+  });
+
+}, [
+  searchTerm,
+  activeFilter
+]);
 
   const columns = [
   {
@@ -133,23 +173,28 @@ const Orders = () => {
         <div className="orders-toolbar">
 
           <SearchBar
-            placeholder="Search orders..."
-          />
+  placeholder="Search orders..."
+  value={searchTerm}
+  onChange={(e) =>
+    setSearchTerm(e.target.value)
+  }
+/>
 
           <FilterBar
-            filters={[
-              "All",
-              "Completed",
-              "Pending",
-              "Cancelled"
-            ]}
-          />
-
+  filters={[
+    "All",
+    "Pending",
+    "Completed",
+    "Cancelled"
+  ]}
+  activeFilter={activeFilter}
+  onFilterChange={setActiveFilter}
+/>
         </div>
 
         <DataTable
           columns={columns}
-          data={orders}
+          data={filteredOrders}
           renderActions={(row) => (
 
             <button
