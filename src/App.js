@@ -9,19 +9,20 @@ import Orders from "./pages/Orders";
 import KYCVerification from "./pages/KYCVerification";
 import Moderations from "./pages/Moderations";
 import Payments from "./pages/Payments";
+import ProtectedRoute from "./context/ProtectedRoute";
 
 function App() {
   return (
     <AuthProvider>
       <Routes>
         <Route path="/" element={<Login />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/users" element={<Users />} />
-        <Route path="/listings" element={<Listings />} />
-        <Route path="/requests" element={<Requests />} />
-        <Route path="/orders" element={<Orders />} />
-        <Route path="/payments" element={<Payments />} />
-        <Route path="/moderation" element={<Moderations />} />
+        <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+        <Route path="/users" element={<ProtectedRoute><Users /></ProtectedRoute>} />
+        <Route path="/listings" element={<ProtectedRoute><Listings /></ProtectedRoute>} />
+        <Route path="/requests" element={<ProtectedRoute><Requests /></ProtectedRoute>} />
+        <Route path="/orders" element={<ProtectedRoute><Orders /></ProtectedRoute>} />
+        <Route path="/payments" element={<ProtectedRoute><Payments /></ProtectedRoute>} />
+        <Route path="/moderation" element={<ProtectedRoute><Moderations /></ProtectedRoute>} />
         <Route path="/kyc" element={<KYCVerification />} />
       </Routes>
     </AuthProvider>

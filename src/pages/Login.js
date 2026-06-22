@@ -3,10 +3,11 @@ import React, { useState, useEffect } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { useAuth } from '../context/AuthProvider'
 import logo from '../assets/img/venlorent-light.png'
+// import authService from '../services/authService'
 import './Login.css'
 
 const Login = () => {
-  const { admin, isLoading } = useAuth()
+  const { admin, isLoading, login } = useAuth()
   const navigate = useNavigate()
   const location = useLocation()
   const from = location.state?.from?.pathname || '/dashboard'
@@ -18,14 +19,53 @@ const Login = () => {
   }, [admin, isLoading, navigate, from])
 
   const [showPassword, setShowPassword] = useState(false)
+  const [errors, setErrors] = useState({})
+  const [formData, setFormData] = useState({
+    email: "",
+    password: ""
+  })
 
+  const handleChange = (e) => {
+    // Clear error for this field when user starts typing
+    if (errors?.[e.target.name]) {
+      setErrors((prev) => ({ ...prev, [e.target.name]: "" }))
+    }
+    setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }))
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    const formErrors = {}
+    
+    if (!formData.email.trim()) {
+      formErrors.email = "email is required"
+    }else if (!/^\S+@\S+\.\S+$/.test(formData.email)) {
+      formErrors.email = "Please enter a valid email address"
+    }
+    
+    if (!formData.password.trim()) {
+      formErrors.password = "Password is required"
+    } else if (formData.password.length < 6) {
+      formErrors.password = "Password must be at least 6 characters"
+    }
+    
+    setErrors(formErrors)
+    if (Object.keys(formErrors).length === 0) {
+      try{
+        await login(formData)
+        navigate(from, { replace: true })
+      } catch (error) {
+        setErrors({ submit: error.response?.data?.message || error.message || "Login failed" })
+      }
+    }
+  }
   return (
     <main className="login-page">
       <section className="login-shell" aria-label="VenloRent admin sign in">
         <div className="login-brand-panel">
           <div className="login-brand">
-            <img src={logo} alt="VenloRent" className="login-brand__logo" />
-            <span className="login-brand__label">Admin workspace</span>
+            <img src={logo} alt="VenloRent" className="login-logo" />
+            {/* <span className="login-brand__label">Admin workspace</span> */}
           </div>
 
           <div className="login-intro">
@@ -60,17 +100,19 @@ const Login = () => {
             <p>Use your admin credentials to continue to VenloRent Admin.</p>
           </div>
 
-          <form className="login-form">
+          <form className="login-form" onSubmit={handleSubmit}>
             <label className="login-field">
               <span>Email address</span>
               <input
-                type="email"
+                type="text"
                 name="email"
-                placeholder="admin@venlorent.com"
+                placeholder="example@venlorent.com"
                 autoComplete="email"
+                onChange={handleChange}
+                value={formData.email || ""}
               />
             </label>
-
+            {errors?.email && <p className="error-message">{errors.email}</p>}
             <label className="login-field">
               <span>Password</span>
               <div className="login-password">
@@ -79,6 +121,8 @@ const Login = () => {
                   name="password"
                   placeholder="Enter your password"
                   autoComplete="current-password"
+                  onChange={handleChange}
+                  value={formData.password || ""}
                 />
                 <button
                   type="button"
@@ -89,7 +133,8 @@ const Login = () => {
                 </button>
               </div>
             </label>
-
+              {errors?.password && <p className="error-message">{errors.password}</p>}
+              {errors?.submit && <p className="submit-error">{errors.submit}</p>}
             <div className="login-form-options">
               <label className="login-check">
                 <input type="checkbox" name="rememberDevice" />
