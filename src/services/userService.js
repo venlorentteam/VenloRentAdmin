@@ -1,9 +1,10 @@
 import api from "./api";
 
-export const getUsers = (query) => api.get(`/users${query ? `?${query}` : ""}`);
+export const getUsers = (token) => api.get(`/admin/users`, { headers: { Authorization: `Bearer ${token}` } });
 
-export const getUser = (id) => api.get(`/users/${id}`);
+export const getUser = (id) => api.get(`/admin/users/${id}`);
 
-export const updateUser = (id, payload) => api.put(`/users/${id}`, payload);
+export const updateUserStatus = (id, status) =>
+  api.patch(`/admin/users/${id}/status`, { status });
 
-export default { getUsers, getUser, updateUser };
+export default { getUsers, getUser, updateUserStatus };
