@@ -1,7 +1,9 @@
 import "./FilterBar.css";
 
 const FilterBar = ({
-  filters = []
+  filters = [],
+  activeFilter,
+  onFilterChange
 }) => {
 
   return (
@@ -11,7 +13,14 @@ const FilterBar = ({
 
         <button
           key={filter}
-          className="filter-chip"
+          className={`filter-chip ${
+            activeFilter === filter
+              ? "active"
+              : ""
+          }`}
+          onClick={() =>
+            onFilterChange(filter)
+          }
         >
           {filter}
         </button>

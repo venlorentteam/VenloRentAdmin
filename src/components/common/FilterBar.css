@@ -28,3 +28,8 @@
 
   cursor: pointer;
 }
+.filter-chip.active {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+}

@@ -12,29 +12,23 @@ import {
 
 import logo from "../../assets/img/venlorent-light.png";
 import { useAuth } from "../../context/AuthProvider";
-import {
-  kycApplications,
-  flaggedItems
-} from "../../mockData";
+import { kycApplications, flaggedItems } from "../../mockData";
 
+// Main Component
 const Sidebar = ({ isOpen, onClose }) => {
   const { admin, logout } = useAuth();
   const navigate = useNavigate();
 
-  const pendingKyc =
-    kycApplications.filter(
-      item => item.status === "pending"
-    ).length;
+  const pendingKyc = kycApplications.filter(
+    item => item.status === "pending"
+  ).length
 
-  const moderationCount =
-    flaggedItems.filter(
-      item => item.status !== "resolved"
-    ).length;
+  const moderationCount = flaggedItems.filter(item => item.status !== "resolved").length
 
   const logoutAdmin = () => {
-    logout();
-    navigate("/", { replace: true });
-  };
+    logout()
+    navigate("/", { replace: true })
+  }
 
   return (
     <aside className={`sidebar ${isOpen ? "active-sidebar" : ""}`}>

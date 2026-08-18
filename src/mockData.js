@@ -103,20 +103,51 @@ export const kycApplications = [
     submittedAt: "6 hours ago"
   }
 ];
-
 export const orders = [
   {
-    id: "VLR001",
-    amount: 850000,
-    status: "completed",
+    id: "VLR-1001",
+    property: "Luxury Duplex",
+    customer: "Chinedu Okafor",
+    agent: "Prime Homes",
+    amount: "₦8,500,000",
+    status: "Completed",
+    createdAt: "2026-06-15",
+    reservationEnds: "-",
   },
-  {
-    id: "VLR002",
-    amount: 1200000,
-    status: "pending",
-  },
-];
 
+  {
+    id: "VLR-1002",
+    property: "2 Bedroom Flat",
+    customer: "Amina Bello",
+    agent: "Urban Properties",
+    amount: "₦2,100,000",
+    status: "Pending",
+    createdAt: "2026-06-17",
+    reservationEnds: "2026-06-20",
+  },
+
+  {
+    id: "VLR-1003",
+    property: "Mini Flat",
+    customer: "John Eze",
+    agent: "Kings Realtors",
+    amount: "₦1,250,000",
+    status: "Pending",
+    createdAt: "2026-06-16",
+    reservationEnds: "2026-06-19",
+  },
+
+  {
+    id: "VLR-1004",
+    property: "4 Bedroom Detached",
+    customer: "Emeka Obi",
+    agent: "Prime Homes",
+    amount: "₦12,000,000",
+    status: "Cancelled",
+    createdAt: "2026-06-10",
+    reservationEnds: "-",
+  }
+];
 export const flaggedItems = [
   {
     id: 1,
@@ -160,7 +191,51 @@ export const listings = [
       "https://images.unsplash.com/photo-1600585154340-be6161a56a0c"
   }
 ];
-export const payments = [];
+export const payments = [
+  {
+    id: "PAY-1001",
+    orderId: "VLR-1001",
+    customer: "Chinedu Okafor",
+    agent: "Prime Homes",
+    amount: "₦8,500,000",
+    gateway: "Paystack",
+    status: "Successful",
+    date: "2026-06-15",
+  },
+
+  {
+    id: "PAY-1002",
+    orderId: "VLR-1002",
+    customer: "Amina Bello",
+    agent: "Urban Properties",
+    amount: "₦2,100,000",
+    gateway: "Flutterwave",
+    status: "Pending",
+    date: "2026-06-17",
+  },
+
+  {
+    id: "PAY-1003",
+    orderId: "VLR-1003",
+    customer: "John Eze",
+    agent: "Kings Realtors",
+    amount: "₦1,250,000",
+    gateway: "Paystack",
+    status: "Failed",
+    date: "2026-06-16",
+  },
+
+  {
+    id: "PAY-1004",
+    orderId: "VLR-1004",
+    customer: "Fatima Bello",
+    agent: "Prime Homes",
+    amount: "₦12,000,000",
+    gateway: "Flutterwave",
+    status: "Refunded",
+    date: "2026-06-14",
+  },
+];
 export const moderationQueue = [
   {
     id: 1,
@@ -186,4 +261,74 @@ export const moderationQueue = [
     reports: 6,
     status: "Under Review"
   }
+];
+export const requests = [
+  {
+    id: "REQ-1001",
+    user: "Amina Bello",
+    location: "Lekki",
+    budget: "₦3,000,000",
+    bedrooms: "2 Bedroom",
+    status: "Open",
+    createdAt: "2026-06-17",
+  },
+
+  {
+    id: "REQ-1002",
+    user: "Chinedu Okafor",
+    location: "Ikoyi",
+    budget: "₦8,000,000",
+    bedrooms: "4 Bedroom",
+    status: "Matched",
+    createdAt: "2026-06-16",
+  },
+
+  {
+    id: "REQ-1003",
+    user: "John Eze",
+    location: "Yaba",
+    budget: "₦1,500,000",
+    bedrooms: "1 Bedroom",
+    status: "Closed",
+    createdAt: "2026-06-15",
+  },
+
+  {
+    id: "REQ-1004",
+    user: "Fatima Bello",
+    location: "Ajah",
+    budget: "₦2,500,000",
+    bedrooms: "2 Bedroom",
+    status: "Open",
+    createdAt: "2026-06-18",
+  }
+];
+export const recentActivities = [
+  {
+    id: 1,
+    action: "New KYC submitted",
+    user: "Amina Bello",
+    time: "5 mins ago",
+  },
+
+  {
+    id: 2,
+    action: "Order completed",
+    user: "Chinedu Okafor",
+    time: "20 mins ago",
+  },
+
+  {
+    id: 3,
+    action: "Listing approved",
+    user: "Prime Homes",
+    time: "1 hour ago",
+  },
+
+  {
+    id: 4,
+    action: "Payment received",
+    user: "John Eze",
+    time: "2 hours ago",
+  },
 ];

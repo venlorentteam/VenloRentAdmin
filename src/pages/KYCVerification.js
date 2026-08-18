@@ -1,5 +1,10 @@
 import "./KYCVerification.css";
-import { useState } from "react";
+import {
+  useState,
+  useMemo
+} from "react";
+import SearchBar from "../components/common/SearchBar";
+import FilterBar from "../components/common/FilterBar";
 import KYCReviewDrawer from "../components/kyc/KYCReviewDrawer";
 import AdminLayout from "../components/layout/AdminLayout";
 import StatusBadge from "../components/common/StatusBadge";
@@ -13,6 +18,55 @@ const [selectedApplication, setSelectedApplication] =
 const [drawerOpen, setDrawerOpen] =
   useState(false);
 
+  const [searchTerm, setSearchTerm] =
+  useState("");
+
+const [activeFilter, setActiveFilter] =
+  useState("All");
+
+const filteredApplications =
+  useMemo(() => {
+
+    return kycApplications.filter(
+      application => {
+
+        const matchesSearch =
+
+          application.applicantName
+            .toLowerCase()
+            .includes(
+              searchTerm.toLowerCase()
+            ) ||
+
+          application.location
+            .toLowerCase()
+            .includes(
+              searchTerm.toLowerCase()
+            );
+
+        const matchesFilter =
+
+          activeFilter === "All"
+            ? true
+            : application.status
+                .toLowerCase()
+                ===
+              activeFilter
+                .toLowerCase();
+
+        return (
+          matchesSearch &&
+          matchesFilter
+        );
+
+      }
+    );
+
+  }, [
+    searchTerm,
+    activeFilter
+  ]);
+
 const openReview = (application) => {
   setSelectedApplication(application);
   setDrawerOpen(true);
@@ -24,28 +78,26 @@ const openReview = (application) => {
 
         <div className="kyc-toolbar">
 
-          <input
-            className="kyc-search"
-            placeholder="Search applicant..."
-          />
+  <SearchBar
+    placeholder="Search applicant..."
+    value={searchTerm}
+    onChange={(e) =>
+      setSearchTerm(e.target.value)
+    }
+  />
 
-          <div className="kyc-filters">
+  <FilterBar
+    filters={[
+      "All",
+      "Pending",
+      "Approved",
+      "Rejected"
+    ]}
+    activeFilter={activeFilter}
+    onFilterChange={setActiveFilter}
+  />
 
-            <button className="filter-btn">
-              Pending
-            </button>
-
-            <button className="filter-btn">
-              Approved
-            </button>
-
-            <button className="filter-btn">
-              Rejected
-            </button>
-
-          </div>
-
-        </div>
+</div>
 
         <div className="kyc-table">
 
@@ -59,7 +111,7 @@ const openReview = (application) => {
 
           </div>
 
-          {kycApplications.map(item => (
+        {filteredApplications.map(item => (
 
             <div
               className="kyc-table-row"

@@ -23,7 +23,7 @@ function App() {
         <Route path="/orders" element={<ProtectedRoute><Orders /></ProtectedRoute>} />
         <Route path="/payments" element={<ProtectedRoute><Payments /></ProtectedRoute>} />
         <Route path="/moderation" element={<ProtectedRoute><Moderations /></ProtectedRoute>} />
-        <Route path="/kyc" element={<KYCVerification />} />
+        <Route path="/kyc" element={<ProtectedRoute><KYCVerification /></ProtectedRoute>} />
       </Routes>
     </AuthProvider>
   )

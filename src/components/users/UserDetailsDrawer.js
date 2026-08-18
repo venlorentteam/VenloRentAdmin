@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
-import "./UserDetailsDrawer.css";
-
+import React, { useEffect, useState } from "react"
+import "./UserDetailsDrawer.css"
+import { FaRegCircleXmark } from "react-icons/fa6"
 const formatKycStatus = (status) => {
   const labels = {
     unsubmitted: "Unsubmitted",
@@ -10,7 +10,7 @@ const formatKycStatus = (status) => {
     rejected: "Rejected",
   };
 
-  return labels[status] || "Unsubmitted";
+  return labels[status] || "Unsubmitted"
 };
 
 const editableStatuses = [
@@ -44,8 +44,8 @@ const UserDetailsDrawer = ({
         <div className="drawer-header">
           <h2>User Details</h2>
 
-          <button onClick={onClose} aria-label="Close drawer">
-            x
+          <button onClick={onClose} className="ud-close-icon">
+            <FaRegCircleXmark />
           </button>
         </div>
 

@@ -9,7 +9,6 @@ import UserDetailsDrawer from "../components/users/UserDetailsDrawer";
 import Loader from "../components/layout/Loader";
 
 // import { users } from "../mockData";
-
 const formatKycStatus = (status) => {
   const labels = {
     unsubmitted: "Unsubmitted",

@@ -65,7 +65,6 @@ const Login = () => {
         <div className="login-brand-panel">
           <div className="login-brand">
             <img src={logo} alt="VenloRent" className="login-logo" />
-            {/* <span className="login-brand__label">Admin workspace</span> */}
           </div>
 
           <div className="login-intro">
@@ -78,18 +77,7 @@ const Login = () => {
           </div>
 
           <div className="login-insights" aria-label="Platform highlights">
-            {/* <div>
-              <span>148</span>
-              <p>Active listings</p>
-            </div>
-            <div>
-              <span>23</span>
-              <p>KYC reviews</p>
-            </div>
-            <div>
-              <span>96%</span>
-              <p>Request response</p>
-            </div> */}
+            
           </div>
         </div>
 

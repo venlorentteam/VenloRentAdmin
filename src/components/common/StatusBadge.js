@@ -9,6 +9,7 @@ const StatusBadge = ({ status }) => {
       case "approved":
       case "verified":
       case "completed":
+      case "matched":
         return "badge badge-success";
 
       case "pending":
@@ -19,6 +20,7 @@ const StatusBadge = ({ status }) => {
       case "rejected":
       case "flagged":
       case "cancelled":
+      case "closed":
         return "badge badge-danger";
 
       default:
