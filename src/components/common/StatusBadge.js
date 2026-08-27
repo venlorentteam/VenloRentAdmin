@@ -16,6 +16,7 @@ const StatusBadge = ({ status }) => {
       case "flagged":
       case "cancelled":
       case "closed":
+      case "failed":
         return "badge badge-danger";
 
       default:
