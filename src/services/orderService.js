@@ -1,9 +1,21 @@
 import api from "./api";
 
-export const getOrders = (query) => api.get(`/orders${query ? `?${query}` : ""}`);
+export const getAdminOrders = (token, params = {}) => {
+  const query = new URLSearchParams();
 
-export const getOrder = (id) => api.get(`/orders/${id}`);
+  if (params.status && params.status !== "All") {
+    query.set("status", String(params.status).toLowerCase());
+  }
 
-export const updateOrder = (id, payload) => api.put(`/orders/${id}`, payload);
+  if (params.search) {
+    query.set("search", String(params.search).trim());
+  }
 
-export default { getOrders, getOrder, updateOrder };
+  const suffix = query.toString() ? `?${query.toString()}` : "";
+
+  return api.get(`/admin/orders${suffix}`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+};
+
+export default { getAdminOrders };

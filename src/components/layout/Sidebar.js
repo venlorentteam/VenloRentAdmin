@@ -11,30 +11,24 @@ import {
 } from "react-icons/ri";
 
 import logo from "../../assets/img/venlorent-light.png";
+import { useAuth } from "../../context/AuthProvider";
+import { kycApplications, flaggedItems } from "../../mockData";
 
-import {
-  kycApplications,
-  flaggedItems
-} from "../../mockData";
-
+// Main Component
 const Sidebar = ({ isOpen, onClose }) => {
-
+  const { admin, logout } = useAuth();
   const navigate = useNavigate();
 
-  const pendingKyc =
-    kycApplications.filter(
-      item => item.status === "pending"
-    ).length;
+  const pendingKyc = kycApplications.filter(
+    item => item.status === "pending"
+  ).length
 
-  const moderationCount =
-    flaggedItems.filter(
-      item => item.status !== "resolved"
-    ).length;
+  const moderationCount = flaggedItems.filter(item => item.status !== "resolved").length
 
-  const logout = () => {
-    localStorage.removeItem("adminLoggedIn");
-    navigate("/login");
-  };
+  const logoutAdmin = () => {
+    logout()
+    navigate("/", { replace: true })
+  }
 
   return (
     <aside className={`sidebar ${isOpen ? "active-sidebar" : ""}`}>
@@ -187,12 +181,12 @@ const Sidebar = ({ isOpen, onClose }) => {
       <div className="sidebar-user">
 
         <div>
-          <strong>Chibuzor A.</strong>
-          <p>Super Admin</p>
+          <strong>{admin?.fullName || "Chibuzor A."}</strong>
+          <p>{admin?.role || "Admin"}</p>
         </div>
 
         <button
-          onClick={logout}
+          onClick={logoutAdmin}
           className="logout-btn"
         >
           Logout

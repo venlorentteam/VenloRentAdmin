@@ -294,3 +294,22 @@
   justify-content: space-between;
   margin-bottom: 14px;
 }
+
+.error-message,
+.empty-message {
+  padding: 12px 14px;
+  border-radius: 10px;
+  font-size: 12px;
+}
+
+.error-message {
+  border: 0.5px solid rgba(239, 68, 68, 0.25);
+  background: rgba(239, 68, 68, 0.08);
+  color: #b91c1c;
+}
+
+.empty-message {
+  border: 0.5px dashed var(--border);
+  background: var(--bg-secondary);
+  color: var(--text-tertiary);
+}

@@ -1,66 +1,68 @@
-import React, { createContext, useContext, useState, useEffect } from 'react'
-import axios from 'axios'
+
+//This context provider holds state and functions related to authentication, such as login, logout, and fetching the current admin profile. 
+import React, { createContext, useContext, useEffect, useState } from "react";
+import { login as loginRequest, getProfile, logout as clearSession } from "../services/authService";
 
 const AuthContext = createContext(null);
 
-const AuthProvider = ({children}) => {
-    const [admin, setAdmin] = useState(null)
-    const [isLoading, setIsLoading] = useState(true);
+const AuthProvider = ({ children }) => {
+  const [admin, setAdmin] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
-    useEffect(() => {
-        //Check for token in localStorage
-        const token = localStorage.getItem("token");
+  const refreshAdmin = async () => {
+    const token = localStorage.getItem("token");
 
-        if (!token) {
-            setIsLoading(false)
-            return
-        }
-
-        //Verify token and fetch user profile
-        const verifyAdmin = async () => {
-            try {
-                const res = await axios.get("", {
-                    headers: { Authorization: `Bearer ${token}` }
-                })
-                setAdmin(res.data.admin)
-            } catch(err){
-                localStorage.removeItem("token")
-                setAdmin(null)
-            } finally {
-                setIsLoading(false)
-            }
-        };
-        verifyAdmin()
-    }, [])
-
-    //Login Function
-    const login = async (email, password) => {
-        const res = await axios.post("", {email, password})
-        if (!res.data?.token || !res.data?.admin) {
-            throw new Error(res.data?.message || "Login failed")
-        }
-        localStorage.setItem("token", res.data.token)
-        setAdmin(res.data.admin)  // normalize on login
-        return res.data.admin
+    if (!token) {
+      setAdmin(null);
+      setIsLoading(false);
+      return;
     }
 
-    //Logout Function
-    const logout = () => {
-        localStorage.removeItem("token")
-        setAdmin(null)
+    try {
+      const res = await getProfile(token);
+      setAdmin(res.data.admin);
+    } catch (error) {
+      localStorage.removeItem("token");
+      setAdmin(null);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    refreshAdmin();
+  }, []);
+
+  const login = async (credentials) => {
+    const res = await loginRequest(credentials);
+
+    if (!res.data?.token || !res.data?.admin) {
+      throw new Error(res.data?.message || "Login failed");
     }
 
-    //Update Admin Function
-    const updateAdmin = (updatedData) => {
-        setAdmin(prev => ({ ...prev, ...updatedData }))  // normalize on update
-    }
-    return (
-        <AuthContext.Provider value={{ admin, isLoading, login, logout, updateAdmin }}>
-            {children}
-        </AuthContext.Provider>
-    )
+    localStorage.setItem("token", res.data.token);
+    setAdmin(res.data.admin);
 
-}
+    return res.data.admin;
+  };
+
+  const logout = () => {
+    clearSession();
+    setAdmin(null);
+  };
+
+  const updateAdmin = (updatedData) => {
+    setAdmin((prev) => ({ ...prev, ...updatedData }));
+  };
+
+  return (
+    <AuthContext.Provider
+      value={{ admin, isLoading, login, logout, refreshAdmin, updateAdmin, }}
+    >
+      {children}
+    </AuthContext.Provider>
+  );
+};
 
 export const useAuth = () => useContext(AuthContext);
-export default AuthProvider
+export default AuthProvider;

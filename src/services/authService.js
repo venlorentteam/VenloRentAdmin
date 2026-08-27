@@ -2,10 +2,11 @@ import api from "./api";
 
 export const login = (credentials) => api.post("/admin/login", credentials);
 
-export const logout = () => {
-  localStorage.removeItem("adminToken");
-};
+export const logout = () => localStorage.removeItem("token");
 
-export const getProfile = () => api.get("/admin/profile");
+export const getProfile = (token) => api.get("/admin/me", {
+  headers: { Authorization: `Bearer ${token}` }
+})
 
-export default { login, logout, getProfile };
+const authService = { login, logout, getProfile }
+export default authService;
