@@ -1,6 +1,6 @@
 import api from "./api";
 
-export const getApplications = (token, params = {}) => {
+export const getAdminRequests = (token, params = {}) => {
   const query = new URLSearchParams();
 
   if (params.page) {
@@ -21,19 +21,9 @@ export const getApplications = (token, params = {}) => {
 
   const suffix = query.toString() ? `?${query.toString()}` : "";
 
-  return api.get(`/admin/kyc${suffix}`, {
+  return api.get(`/admin/requests${suffix}`, {
     headers: { Authorization: `Bearer ${token}` },
   });
 };
 
-export const getApplication = (token, id) =>
-  api.get(`/admin/kyc/${id}`, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
-
-export const updateApplicationStatus = (token, id, payload) =>
-  api.patch(`/admin/kyc/${id}/status`, payload, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
-
-export default { getApplications, getApplication, updateApplicationStatus };
+export default { getAdminRequests };

@@ -103,10 +103,19 @@
   background: var(--bg-hover);
 }
 
+.kyc-table-header > div,
+.kyc-table-row > div {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .applicant {
   display: flex;
   align-items: center;
   gap: 12px;
+  min-width: 0;
 }
 
 .applicant-avatar {
