@@ -10,6 +10,8 @@ import FilterBar from "../components/common/FilterBar";
 import StatusBadge from "../components/common/StatusBadge";
 import Drawer from "../components/common/Drawer";
 import Loader from "../components/layout/Loader";
+import PaginationControls from "../components/common/PaginationControls";
+import usePaginatedResource from "../hooks/usePaginatedResource";
 
 import { getPayments } from "../services/paymentService";
 
@@ -40,6 +42,16 @@ const Payments = () => {
     };
     fetchPayments();
   }, []);
+
+  // const {
+  //   pagination,
+  //   goToPage,
+  //   setLimit
+  // } = usePaginatedResource({
+  //   fetchPage: fetchQueue,
+  //   initialLimit: 12,
+  //   deps: [searchTerm, activeFilter, activeType],
+  // })
 
   const filteredPayments = useMemo(() => {
     return payments.filter((payment) => {
@@ -105,16 +117,31 @@ const Payments = () => {
 
         {fetchError && <div className="error-message">{fetchError}</div>}
         {loading && <Loader />}
+        {!loading && payments.length === 0 && (
+          <div className="empty-message">No payments available yet.</div>
+        )}
 
-        <DataTable
-          columns={columns}
-          data={filteredPayments}
-          renderActions={(row) => (
-            <button className="payment-view-btn" onClick={() => setSelectedPayment(row)}>
-              View
-            </button>
-          )}
-        />
+        {!loading && payments.length > 0 && filteredPayments.length === 0 && (
+          <div className="empty-message">No payments match your search or filter.</div>
+        )}
+
+        {!loading && filteredPayments.length > 0 && (
+          <DataTable
+            columns={columns}
+            data={filteredPayments}
+            renderActions={(row) => (
+              <button className="payment-view-btn" onClick={() => setSelectedPayment(row)}>
+                View
+              </button>
+            )}
+          />
+        )}
+
+        {/* <PaginationControls
+          pagination={pagination}
+          onPageChange={goToPage}
+          onLimitChange={setLimit}
+        /> */}
 
         <Drawer isOpen={!!selectedPayment} onClose={() => setSelectedPayment(null)} title="Payment Details">
           {selectedPayment && (
@@ -133,7 +160,7 @@ const Payments = () => {
         </Drawer>
       </div>
     </AdminLayout>
-  );
-};
+  )
+}
 
 export default Payments;
