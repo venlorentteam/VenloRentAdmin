@@ -10,8 +10,8 @@ import FilterBar from "../components/common/FilterBar";
 import StatusBadge from "../components/common/StatusBadge";
 import Drawer from "../components/common/Drawer";
 import Loader from "../components/layout/Loader";
-import PaginationControls from "../components/common/PaginationControls";
-import usePaginatedResource from "../hooks/usePaginatedResource";
+// import PaginationControls from "../components/common/PaginationControls";
+// import usePaginatedResource from "../hooks/usePaginatedResource";
 
 import { getPayments } from "../services/paymentService";
 
