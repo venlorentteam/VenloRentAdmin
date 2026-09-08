@@ -1,41 +1,40 @@
 .data-table {
   background: var(--bg-card);
-
   border: .5px solid var(--border);
-
   border-radius: 14px;
-
   overflow: hidden;
 }
 
 .table-header {
   display: grid;
-
   height: 48px;
-
   align-items: center;
-
   padding: 0 16px;
-
   background: var(--bg-secondary);
-
   font-size: 11px;
-
   text-transform: uppercase;
-
   color: var(--text-tertiary);
 }
 
 .table-row {
   display: grid;
-
   min-height: 60px;
-
   align-items: center;
-
   padding: 0 16px;
-
   border-top: .5px solid var(--border);
+}
+
+.table-header > div,
+.table-row > div {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.table-row > div {
+  display: flex;
+  align-items: center;
 }
 
 .table-row:hover {

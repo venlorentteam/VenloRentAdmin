@@ -1,80 +1,70 @@
 import "./Orders.css";
-import { useEffect, useMemo, useState } from "react";
-import AdminLayout from "../components/layout/AdminLayout";
-import Loader from "../components/layout/Loader";
+import { useState } from "react";
+import AdminLayout from "../components/layout/AdminLayout"
+import Loader from "../components/layout/Loader"
 
-import DataTable from "../components/common/DataTable";
-import SearchBar from "../components/common/SearchBar";
-import FilterBar from "../components/common/FilterBar";
-import StatusBadge from "../components/common/StatusBadge";
-import Drawer from "../components/common/Drawer";
+import DataTable from "../components/common/DataTable"
+import SearchBar from "../components/common/SearchBar"
+import FilterBar from "../components/common/FilterBar"
+import StatusBadge from "../components/common/StatusBadge"
+import Drawer from "../components/common/Drawer"
+import PaginationControls from "../components/common/PaginationControls";
 
-import { getAdminOrders } from "../services/orderService";
+import { getAdminOrders } from "../services/orderService"
+import usePaginatedResource from "../hooks/usePaginatedResource";
 
 const ORDER_FILTERS = ["All", "Pending", "Accepted", "Completed", "Cancelled", "Expired"];
-
 const normalizeText = (value = "") => value.toString().toLowerCase().trim();
 
+//Main Component
 const Orders = () => {
-  const [orders, setOrders] = useState([]);
   const [selectedOrder, setSelectedOrder] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [activeFilter, setActiveFilter] = useState("All");
-  const [isLoading, setIsLoading] = useState(false);
-  const [fetchError, setFetchError] = useState(null);
 
-  useEffect(() => {
-    const fetchOrders = async () => {
-      const token = localStorage.getItem("token");
+  const fetchOrders = ({ page, limit }) => {
+    const token = localStorage.getItem("token");
 
-      if (!token) {
-        setFetchError("Missing admin token. Please log in again.");
-        return;
-      }
-
-      setIsLoading(true)
-
-      try {
-        const res = await getAdminOrders(token);
-        setOrders(res.data?.orders || []);
-        setFetchError(null)
-      } catch (error) {
-        setFetchError(error.response?.data?.message || error.message || "Failed to fetch orders");
-      } finally {
-        setIsLoading(false)
-      }
+    if (!token) {
+      throw new Error("Missing admin token. Please log in again.");
     }
 
-    fetchOrders()
-  }, [])
+    return getAdminOrders(token, {
+      page,
+      limit,
+      search: searchTerm,
+      status: activeFilter,
+    })
+  }
 
-  const filteredOrders = useMemo(() => {
-    const search = normalizeText(searchTerm)
-    const filter = normalizeText(activeFilter)
+  const {
+    items: orders,
+    pagination,
+    summary,
+    loading: isLoading,
+    error: fetchError,
+    goToPage,
+    setLimit,
+  } = usePaginatedResource({
+    fetchPage: fetchOrders,
+    initialLimit: 10,
+    deps: [searchTerm, activeFilter],
+  });
 
-    return orders.filter((order) => {
-      const matchesSearch =
-        normalizeText(order.id).includes(search) ||
-        normalizeText(order.property).includes(search) ||
-        normalizeText(order.customer).includes(search) ||
-        normalizeText(order.agent).includes(search) ||
-        normalizeText(order.status).includes(search);
-
-      const matchesFilter = filter === "all" ? true : normalizeText(order.status) === filter;
-
-      return matchesSearch && matchesFilter;
-    });
-  }, [orders, searchTerm, activeFilter]);
-
-  const totalOrders = orders.length;
-  const completedOrders = orders.filter((order) => normalizeText(order.status) === "completed").length;
-  const pendingOrders = orders.filter((order) => ["pending", "accepted"].includes(normalizeText(order.status))).length;
-  const cancelledOrders = orders.filter((order) => ["cancelled", "rejected", "expired"].includes(normalizeText(order.status))).length;
+  const totalOrders = summary.totalOrders ?? pagination.totalItems ?? orders.length;
+  const completedOrders =
+    summary.completedOrders ?? orders.filter((order) => normalizeText(order.status) === "completed").length;
+  const pendingOrders =
+    summary.pendingOrders ??
+    orders.filter((order) => ["pending", "accepted"].includes(normalizeText(order.status))).length;
+  const cancelledOrders =
+    summary.cancelledOrders ??
+    orders.filter((order) => ["cancelled", "rejected", "expired"].includes(normalizeText(order.status))).length;
 
   const columns = [
     {
-      key: "id",
-      label: "Order ID",
+      key: "serial",
+      label: "#",
     },
     {
       key: "customer",
@@ -101,14 +91,17 @@ const Orders = () => {
     {
       key: "createdAt",
       label: "Created",
-    },
+    }
   ]
+  const tableOrders = orders.map((order, index) => ({
+    ...order,
+    serial: (pagination.page - 1) * pagination.limit + index + 1,
+  }));
 
   return (
     <AdminLayout>
       <div className="orders-page">
         {isLoading && <Loader />}
-
         <div className="orders-stats-grid">
           <div className="orders-stat-card">
             <div className="orders-stat-label">
@@ -146,7 +139,7 @@ const Orders = () => {
 
         <div className="orders-toolbar">
           <SearchBar
-            placeholder="Search orders..."
+            placeholder="Search orders by ID..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
@@ -161,7 +154,7 @@ const Orders = () => {
 
         <DataTable
           columns={columns}
-          data={filteredOrders}
+          data={tableOrders}
           renderActions={(row) => (
             <button
               className="order-view-btn"
@@ -172,9 +165,15 @@ const Orders = () => {
           )}
         />
 
-        {!isLoading && filteredOrders.length === 0 && (
+        {!isLoading && orders.length === 0 && (
           <div className="empty-message">No orders found.</div>
         )}
+
+        <PaginationControls
+          pagination={pagination}
+          onPageChange={goToPage}
+          onLimitChange={setLimit}
+        />
 
         <Drawer
           isOpen={!!selectedOrder}
@@ -221,6 +220,6 @@ const Orders = () => {
       </div>
     </AdminLayout>
   );
-};
+}
 
 export default Orders;

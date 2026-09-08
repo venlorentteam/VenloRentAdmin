@@ -11,38 +11,28 @@
 
 .moderation-card {
   background: var(--bg-card);
-
   border: .5px solid var(--border);
-
   border-radius: 14px;
-
   padding: 18px;
 }
 
 .moderation-type {
   font-size: 11px;
-
   text-transform: uppercase;
-
   color: var(--text-tertiary);
-
   margin-bottom: 8px;
 }
 
 .moderation-title {
   font-size: 18px;
-
   font-weight: 600;
-
   margin-bottom: 10px;
 }
 
 .moderation-meta {
   display: flex;
   gap: 12px;
-
   font-size: 12px;
-
   margin-bottom: 14px;
 }
 
@@ -51,15 +41,48 @@
   gap: 8px;
 }
 
+.moderation-card {
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.moderation-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.moderation-card:active {
+  transform: translateY(0);
+}
+
+/* Toolbar aligned with .listings-toolbar / .requests-toolbar pattern:
+   search on the left, filter groups on the right, wraps on narrow screens */
+.moderation-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  /* flex-wrap: nowrap; */
+}
+
+/* Groups the status + type filter bars so they sit side by side
+   on the right edge of the toolbar */
+.moderation-toolbar-filters {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  /* flex-shrink: 0; */
+  flex-flow: row wrap;
+  margin-left: auto; /* Force to the right */
+}
+
 .action-btn {
   height: 36px;
-
   padding: 0 14px;
-
   border-radius: 8px;
-
   border: none;
-
   cursor: pointer;
 }
 

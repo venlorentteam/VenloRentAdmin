@@ -4,6 +4,9 @@ const KYCReviewDrawer = ({
   application,
   isOpen,
   onClose,
+  onApprove,
+  onReject,
+  isSaving = false,
 }) => {
 
   if (!isOpen || !application) return null;
@@ -105,12 +108,20 @@ const KYCReviewDrawer = ({
 
         <div className="drawer-footer">
 
-          <button className="reject-btn">
+          <button
+            className="reject-btn"
+            onClick={onReject}
+            disabled={isSaving}
+          >
             Reject
           </button>
 
-          <button className="approve-btn">
-            Approve Agent
+          <button
+            className="approve-btn"
+            onClick={onApprove}
+            disabled={isSaving}
+          >
+            {isSaving ? "Saving..." : "Approve Agent"}
           </button>
 
         </div>
