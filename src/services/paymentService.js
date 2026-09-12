@@ -6,4 +6,4 @@ export const getPayments = (token, { page, limit, status, search } = {}) =>
     params: { page, limit, status, search },
   })
 
-export default { getPayments }
+//export default { getPayments }

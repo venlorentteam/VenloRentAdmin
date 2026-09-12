@@ -10,4 +10,4 @@ export const updateListing = (id, payload) => api.put(`/listings/${id}`, payload
 
 export const deleteListing = (id) => api.delete(`/listings/${id}`);
 
-export default { getListings, getListing, createListing, updateListing, deleteListing };
+// export default { getListings, getListing, createListing, updateListing, deleteListing };

@@ -20,6 +20,7 @@ const Login = () => {
 
   const [showPassword, setShowPassword] = useState(false)
   const [errors, setErrors] = useState({})
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const [formData, setFormData] = useState({
     email: "",
     password: ""
@@ -52,10 +53,13 @@ const Login = () => {
     setErrors(formErrors)
     if (Object.keys(formErrors).length === 0) {
       try{
+        setIsSubmitting(true)
         await login(formData)
         navigate(from, { replace: true })
       } catch (error) {
         setErrors({ submit: error.response?.data?.message || error.message || "Login failed" })
+      } finally {
+        setIsSubmitting(false)
       }
     }
   }
@@ -132,8 +136,8 @@ const Login = () => {
               <a href="mailto:support@venlorent.com">Need help?</a>
             </div>
 
-            <button type="submit" className="login-submit">
-              Sign in to dashboard
+            <button type="submit" className="login-submit" disabled={isSubmitting}>
+              {isSubmitting ? 'Signing in...' : 'Sign in to dashboard'}
             </button>
           </form>
 

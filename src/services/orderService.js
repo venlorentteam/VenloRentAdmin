@@ -26,4 +26,4 @@ export const getAdminOrders = (token, params = {}) => {
   });
 };
 
-export default { getAdminOrders };
+//export default { getAdminOrders };
