@@ -11,11 +11,11 @@ import usePaginatedResource from "../hooks/usePaginatedResource";
 import ModerationDetailsDrawer from "../components/moderation/ModerationDetailsDrawer";
 import { updateUserStatus } from "../services/userService";
 
-import Loader from "../components/layout/Loader";
-import { getModerationQueue, performModerationAction } from "../services/moderationService";
+import Loader from "../components/layout/Loader"
+import { getModerationQueue, performModerationAction } from "../services/moderationService"
 
-const MODERATION_FILTERS = ["All", "Open", "In Review", "Pending", "Flagged", "Rejected"];
-const MODERATION_TYPES = ["All", "Report", "Property", "Request"];
+const MODERATION_FILTERS = ["All", "Open", "In Review", "Pending", "Flagged", "Rejected"]
+const MODERATION_TYPES = ["All", "Report", "Property", "Request"]
 
 const STATUS_VALUE_MAP = {
   Open: "open",

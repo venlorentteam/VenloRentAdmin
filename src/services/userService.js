@@ -7,4 +7,4 @@ export const getUser = (id) => api.get(`/admin/users/${id}`);
 export const updateUserStatus = (id, status) =>
   api.patch(`/admin/users/${id}/status`, { status });
 
-export default { getUsers, getUser, updateUserStatus };
+//export default { getUsers, getUser, updateUserStatus };

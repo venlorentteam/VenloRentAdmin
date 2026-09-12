@@ -26,4 +26,4 @@ export const getAdminListings = (token, params = {}) => {
   });
 };
 
-export default { getAdminListings };
+//export default { getAdminListings };

@@ -31,5 +31,5 @@ export const performModerationAction = (token, type, id, action, payload = {}) =
     headers: { Authorization: `Bearer ${token}` },
   });
 
-export default { getModerationQueue, performModerationAction };
+//export default { getModerationQueue, performModerationAction };
 

@@ -26,4 +26,4 @@ export const getAdminRequests = (token, params = {}) => {
   });
 };
 
-export default { getAdminRequests };
+//export default { getAdminRequests };

@@ -1,80 +1,68 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect } from "react"
 
-import "./Payments.css";
+import "./Payments.css"
 
-import AdminLayout from "../components/layout/AdminLayout";
+import AdminLayout from "../components/layout/AdminLayout"
 
-import DataTable from "../components/common/DataTable";
-import SearchBar from "../components/common/SearchBar";
-import FilterBar from "../components/common/FilterBar";
-import StatusBadge from "../components/common/StatusBadge";
-import Drawer from "../components/common/Drawer";
-import Loader from "../components/layout/Loader";
-// import PaginationControls from "../components/common/PaginationControls";
-// import usePaginatedResource from "../hooks/usePaginatedResource";
+import DataTable from "../components/common/DataTable"
+import SearchBar from "../components/common/SearchBar"
+import FilterBar from "../components/common/FilterBar"
+import StatusBadge from "../components/common/StatusBadge"
+import Drawer from "../components/common/Drawer"
+import Loader from "../components/layout/Loader"
+import PaginationControls from "../components/common/PaginationControls"
+import usePaginatedResource from "../hooks/usePaginatedResource"
 
-import { getPayments } from "../services/paymentService";
+import { getPayments } from "../services/paymentService"
+
+const PAYMENT_FILTERS = ["All", "Successful", "Pending", "Failed", "Refunded"]
 
 const Payments = () => {
-  const [payments, setPayments] = useState([]);
-  const [selectedPayment, setSelectedPayment] = useState(null);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [activeFilter, setActiveFilter] = useState("All");
-  const [loading, setLoading] = useState(false);
-  const [fetchError, setFetchError] = useState(null);
+  const [selectedPayment, setSelectedPayment] = useState(null)
+  const [searchInput, setSearchInput] = useState("")
+  const [searchTerm, setSearchTerm] = useState("")
+  const [activeFilter, setActiveFilter] = useState("All")
 
+  // Debounce search input — same pattern as Moderations.js.
   useEffect(() => {
-    const fetchPayments = async () => {
-      setLoading(true);
-      const token = localStorage.getItem("token");
-      if (!token) {
-        setLoading(false);
-        return;
-      }
-      try {
-        const res = await getPayments(token, { limit: 100 });
-        setPayments(res.data.items || []);
-      } catch (err) {
-        setFetchError(err.message || "Failed to fetch payments");
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchPayments();
-  }, []);
+    const id = setTimeout(() => setSearchTerm(searchInput), 400)
+    return () => clearTimeout(id);
+  }, [searchInput])
 
-  // const {
-  //   pagination,
-  //   goToPage,
-  //   setLimit
-  // } = usePaginatedResource({
-  //   fetchPage: fetchQueue,
-  //   initialLimit: 12,
-  //   deps: [searchTerm, activeFilter, activeType],
-  // })
+  const fetchPayments = ({ page, limit }) => {
+    const token = localStorage.getItem("token")
+    if (!token) throw new Error("Missing admin token.")
+    return getPayments(token, {
+      page,
+      limit,
+      search: searchTerm,
+      status: activeFilter, // backend already normalizes "All" → no filter
+    })
+  }
 
-  const filteredPayments = useMemo(() => {
-    return payments.filter((payment) => {
-      const matchesSearch =
-        payment.id.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        payment.orderId.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        payment.customer.toLowerCase().includes(searchTerm.toLowerCase());
-
-      const matchesFilter = activeFilter === "All" ? true : payment.status === activeFilter;
-
-      return matchesSearch && matchesFilter;
-    });
-  }, [payments, searchTerm, activeFilter]);
+  const {
+    items: payments,
+    pagination,
+    summary,
+    loading,
+    error,
+    goToPage,
+    setLimit,
+  } = usePaginatedResource({
+    fetchPage: fetchPayments,
+    initialLimit: 10,
+    deps: [searchTerm, activeFilter],
+  })
 
   const columns = [
     { key: "id", label: "Reference" },
-    { key: "orderId", label: "Subscription" }, // relabeled — this is no longer an Order reference
+    { key: "orderId", label: "Subscription" },
     { key: "customer", label: "Customer" },
     { key: "amount", label: "Amount" },
     { key: "gateway", label: "Gateway" },
     { key: "status", label: "Status", render: (row) => <StatusBadge status={row.status} /> },
     { key: "date", label: "Date" },
-  ];
+  ]
 
   return (
     <AdminLayout>
@@ -82,66 +70,65 @@ const Payments = () => {
         <div className="payments-stats-grid">
           <div className="payments-stat-card">
             <div className="payments-stat-label">Total Payments</div>
-            <div className="payments-stat-value">{payments.length}</div>
+            <div className="payments-stat-value">{summary.totalPayments ?? 0}</div>
           </div>
           <div className="payments-stat-card">
             <div className="payments-stat-label">Successful</div>
-            <div className="payments-stat-value">{payments.filter((p) => p.status === "Successful").length}</div>
+            <div className="payments-stat-value">{summary.successfulPayments ?? 0}</div>
           </div>
           <div className="payments-stat-card">
             <div className="payments-stat-label">Pending</div>
-            <div className="payments-stat-value">{payments.filter((p) => p.status === "Pending").length}</div>
+            <div className="payments-stat-value">{summary.pendingPayments ?? 0}</div>
           </div>
           <div className="payments-stat-card">
             <div className="payments-stat-label">Failed</div>
-            <div className="payments-stat-value">{payments.filter((p) => p.status === "Failed").length}</div>
+            <div className="payments-stat-value">{summary.failedPayments ?? 0}</div>
           </div>
           <div className="payments-stat-card">
             <div className="payments-stat-label">Refunded</div>
-            <div className="payments-stat-value">{payments.filter((p) => p.status === "Refunded").length}</div>
+            <div className="payments-stat-value">{summary.refundedPayments ?? 0}</div>
           </div>
         </div>
 
         <div className="payments-toolbar">
           <SearchBar
             placeholder="Search payments..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
+            value={searchInput}
+            onChange={(e) => setSearchInput(e.target.value)}
           />
           <FilterBar
-            filters={["All", "Successful", "Pending", "Failed", "Refunded"]}
+            filters={PAYMENT_FILTERS}
             activeFilter={activeFilter}
             onFilterChange={setActiveFilter}
           />
         </div>
 
-        {fetchError && <div className="error-message">{fetchError}</div>}
+        {error && <div className="error-message">{error}</div>}
         {loading && <Loader />}
+
         {!loading && payments.length === 0 && (
-          <div className="empty-message">No payments available yet.</div>
+          <div className="empty-message">No payments found.</div>
         )}
 
-        {!loading && payments.length > 0 && filteredPayments.length === 0 && (
-          <div className="empty-message">No payments match your search or filter.</div>
-        )}
+        {!loading && payments.length > 0 && (
+          <>
+            <DataTable
+              columns={columns}
+              data={payments}
+              renderActions={(row) => (
+                <button className="payment-view-btn" onClick={() => setSelectedPayment(row)}>
+                  View
+                </button>
+              )}
+            />
 
-        {!loading && filteredPayments.length > 0 && (
-          <DataTable
-            columns={columns}
-            data={filteredPayments}
-            renderActions={(row) => (
-              <button className="payment-view-btn" onClick={() => setSelectedPayment(row)}>
-                View
-              </button>
-            )}
-          />
+            <PaginationControls
+              pagination={pagination}
+              onPageChange={goToPage}
+              onLimitChange={setLimit}
+            />
+          </>
         )}
-
-        {/* <PaginationControls
-          pagination={pagination}
-          onPageChange={goToPage}
-          onLimitChange={setLimit}
-        /> */}
 
         <Drawer isOpen={!!selectedPayment} onClose={() => setSelectedPayment(null)} title="Payment Details">
           {selectedPayment && (
@@ -163,4 +150,4 @@ const Payments = () => {
   )
 }
 
-export default Payments;
+export default Payments

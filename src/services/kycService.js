@@ -36,4 +36,4 @@ export const updateApplicationStatus = (token, id, payload) =>
     headers: { Authorization: `Bearer ${token}` },
   });
 
-export default { getApplications, getApplication, updateApplicationStatus };
+// export default { getApplications, getApplication, updateApplicationStatus };

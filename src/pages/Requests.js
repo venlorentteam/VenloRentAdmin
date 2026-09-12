@@ -59,14 +59,19 @@ const Requests = () => {
   const closedRequests = summary.closedRequests ?? 0;
 
   const columns = [
+    { key: "serial", label: "#" },
     { key: "id", label: "Request ID" },
     { key: "user", label: "User" },
     { key: "location", label: "Location" },
     { key: "budget", label: "Budget" },
     { key: "status", label: "Status", render: (row) => <StatusBadge status={row.status} /> },
     { key: "createdAt", label: "Created" },
-  ];
+  ]
 
+  const tableRequests = requests.map((request, index) => ({
+    ...request,
+    serial: (pagination.page - 1) * pagination.limit + index + 1,
+  }));
   return (
     <AdminLayout>
       <div className="requests-page">
@@ -108,7 +113,7 @@ const Requests = () => {
 
         <DataTable
           columns={columns}
-          data={requests}
+          data={tableRequests}
           renderActions={(row) => (
             <button className="request-view-btn" onClick={() => setSelectedRequest(row)}>
               View
